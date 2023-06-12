@@ -53,32 +53,32 @@ const ShowAllSquare = styled(Link)`
 export default function CategoriesPage({mainCategories,categoriesProducts,wishedProducts=[]}) {
   return (
     <>
-      <Header />
-      <Center>
-        {mainCategories.map(cat => (
-          <CategoryWrapper>
-            <CategoryTitle>
-              <h2>{cat.name}</h2>
-              <div>
-                <Link href={'/category/'+cat._id}>Show all</Link>
-              </div>
-            </CategoryTitle>
-            <CategoryGrid>
-              {categoriesProducts[cat._id].map((p,index) => (
-                <RevealWrapper delay={index*50}>
-                  <ProductBox {...p} wished={wishedProducts.includes(p._id)} />
-                </RevealWrapper>
-              ))}
-              <RevealWrapper delay={categoriesProducts[cat._id].length*50}>
-                <ShowAllSquare href={'/category/'+cat._id}>
-                  Show all &rarr;
-                </ShowAllSquare>
-              </RevealWrapper>
-            </CategoryGrid>
-          </CategoryWrapper>
-        ))}
-      </Center>
-    </>
+     <Header />
+  <Center>
+    {mainCategories.map(cat => (
+      <CategoryWrapper key={cat._id}>
+        <CategoryTitle>
+          <h2>{cat.name}</h2>
+          <div>
+            <Link href={'/category/'+cat._id}>Show all</Link>
+          </div>
+        </CategoryTitle>
+        <CategoryGrid>
+          {categoriesProducts[cat._id].map((p,index) => (
+            <RevealWrapper key={p._id} delay={index*50}>
+              <ProductBox {...p} wished={wishedProducts.includes(p._id)} />
+            </RevealWrapper>
+          ))}
+          <RevealWrapper key={'show-all'} delay={categoriesProducts[cat._id].length*50}>
+            <ShowAllSquare href={'/category/'+cat._id}>
+              Show all &rarr;
+            </ShowAllSquare>
+          </RevealWrapper>
+        </CategoryGrid>
+      </CategoryWrapper>
+    ))}
+  </Center>
+</>
   );
 }
 
